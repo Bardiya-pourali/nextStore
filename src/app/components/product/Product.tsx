@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Button from "../button/Button";
 
 interface Product {
   id: number;
@@ -14,7 +13,7 @@ interface Product {
   bought_count: number;
 }
 
-export const Product = ({ products }: Product) => {
+export const Product = ({ products }:Product) => {
   const [count, setCount] = useState(10);
 
   const loadMore = () => {
@@ -24,7 +23,7 @@ export const Product = ({ products }: Product) => {
   return (
     <>
       {products.slice(0, count).map((product) => (
-        <div className="card bg-base-100 shadow-xl image-full">
+        <div className="card bg-base-300 shadow-xl rounded-sm">
           <figure>
             <img
               className="w-full h-full object-cover"
@@ -32,8 +31,8 @@ export const Product = ({ products }: Product) => {
               alt=""
             />
           </figure>
-          <div className="card-body ">
-            <h2 className="card-title">{product.name}</h2>
+          <div className="card-body max-h-64">
+            <h2 className="card-title line-clamp-1">{product.name}</h2>
             <p className="line-clamp-1">{product.description}</p>
 
             <div>
@@ -44,8 +43,11 @@ export const Product = ({ products }: Product) => {
                 ></span>
               ))}
             </div>
-            <div className="card-actions justify-end">
-              <p className="pt-2">{product.price} $</p>
+            <div className="card-actions justify-end items-center">
+              {product.discounted_price != 0 ?
+               <p className="pt-2"> <del className="text-red-700 pr-3">{product.price}</del>    {product.discounted_price} $</p>
+              :
+              <p className="pt-2">{product.price} $</p>}
               <button className="btn btn-primary">
                 Buy Now
               </button>
